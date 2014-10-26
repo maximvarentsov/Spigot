@@ -1,0 +1,76 @@
+From 7bda8f1d89caa6b2143f2e7815601634749a5a51 Mon Sep 17 00:00:00 2001
+From: Maxim Varentsov <maxim.v@ohm.pw>
+Date: Sun, 19 Oct 2014 19:40:10 +0400
+Subject: [PATCH] Add BungeeCord Chat Component API
+
+
+diff --git a/pom.xml b/pom.xml
+index 0c9f243..3cf1152 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -74,6 +74,23 @@
+     </build>
+     <dependencies>
+         <dependency>
++            <groupId>net.md-5</groupId>
++            <artifactId>bungeecord-chat</artifactId>
++            <version>1.8-SNAPSHOT</version>
++            <type>jar</type>
++            <scope>compile</scope>
++            <exclusions>
++                <exclusion>
++                    <groupId>com.google.code.gson</groupId>
++                    <artifactId>gson</artifactId>
++                </exclusion>
++                <exclusion>
++                    <groupId>net.sf.trove4j</groupId>
++                    <artifactId>trove4j</artifactId>
++                </exclusion>
++            </exclusions>
++        </dependency>
++        <dependency>
+             <groupId>org.yaml</groupId>
+             <artifactId>snakeyaml</artifactId>
+             <version>1.12</version>
+diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
+index b2ad5b7..de6e871 100644
+--- a/src/main/java/org/bukkit/entity/Player.java
++++ b/src/main/java/org/bukkit/entity/Player.java
+@@ -2,6 +2,7 @@ package org.bukkit.entity;
+ 
+ import java.net.InetSocketAddress;
+ 
++import net.md_5.bungee.api.chat.BaseComponent;
+ import org.bukkit.Achievement;
+ import org.bukkit.ChatColor;
+ import org.bukkit.Effect;
+@@ -1102,6 +1103,26 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
+         {
+             throw new UnsupportedOperationException( "Not supported yet." );
+         }
++
++        /**
++         * Sends this player a message
++         *
++         * @param message Message to be displayed
++         */
++        public void sendMessage(BaseComponent message)
++        {
++            throw new UnsupportedOperationException( "Not supported yet." );
++        }
++
++        /**
++         * Sends this player a message
++         *
++         * @param message Message to be displayed
++         */
++        public void sendMessage(BaseComponent... message)
++        {
++            throw new UnsupportedOperationException( "Not supported yet." );
++        }
+     }
+ 
+     Spigot spigot();
+-- 
+1.9.3 (Apple Git-50)
+
