@@ -1,0 +1,43 @@
+From 782f48a9c99c574c9e7468e47342202c3d66ebcb Mon Sep 17 00:00:00 2001
+From: Maxim Varentsov <maxim.v@ohm.pw>
+Date: Sun, 26 Oct 2014 16:54:41 +0300
+Subject: [PATCH] Add a mechanism to use the BungeeCord chat API. This allows
+ you to use sendMessage with the new chat features presented in the following
+ wiki article:http://www.spigotmc.org/wiki/the-chat-component-api/.
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
+index 35f2bfa..d69c9f8 100644
+--- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
++++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
+@@ -17,6 +17,8 @@ import java.util.UUID;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+ 
++import net.md_5.bungee.api.chat.BaseComponent;
++import net.md_5.bungee.chat.ComponentSerializer;
+ import net.minecraft.server.*;
+ 
+ import net.minecraft.util.com.mojang.authlib.GameProfile;
+@@ -1402,6 +1404,18 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+ 
+             return java.util.Collections.unmodifiableSet( ret );
+         }
++        
++        @Override
++        public void sendMessage(BaseComponent message)
++        {
++            getHandle().playerConnection.sendPacket( new PacketPlayOutChat( ChatSerializer.a( ComponentSerializer.toString( message ) ) ) );
++        }
++
++        @Override
++        public void sendMessage(BaseComponent... message)
++        {
++            getHandle().playerConnection.sendPacket( new PacketPlayOutChat( ChatSerializer.a( ComponentSerializer.toString( message ) ) ) );
++        }
+     };
+ 
+     public Player.Spigot spigot()
+-- 
+1.9.3 (Apple Git-50)
+
